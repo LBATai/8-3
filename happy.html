@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+    .popup-box {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9998;
+    }
+    .mobox {
+        width: 300px; 
+        height: 200px; 
+        border: 1px solid #ccc;
+    }
+    #moveButton {
+        position: absolute;
+        padding-left: 1%;
+        padding: 1%;
+        color: aqua;
+        background-color: blue;
+      }
+    #dongbox {
+        align-items: center;
+        padding: 1%;
+    }
+
+
+    .popup-box {
+    width: 80%; /* Chiều rộng mặc định */
+    max-width: 400px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Canh giữa div */
+    padding: 20px; /* Khoảng cách nội dung từ biên div */
+    background-color: #fff; /* Màu nền */
+    border-radius: 10px; /* Bo tròn các góc */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  }
+
+  /* CSS cho nội dung trong div */
+  .popup-box p {
+    margin-bottom: 15px; /* Khoảng cách giữa các đoạn văn */
+  }
+
+  /* CSS cho ảnh */
+  .popup-box img {
+    max-width: 100%; /* Ảnh không vượt quá chiều rộng của div */
+    height: auto; /* Chiều cao tự động điều chỉnh */
+  }
+
+  /* CSS cho nút */
+  .popup-box button {
+    display: block; /* Hiển thị nút dưới dạng khối */
+    width: 100%; /* Nút chiếm toàn bộ chiều rộng của div */
+    padding: 10px; /* Khoảng cách từ nút đến nội dung xung quanh */
+    background-color: #007bff; /* Màu nút */
+    color: #fff; /* Màu chữ */
+    border: none; /* Không có đường viền */
+    border-radius: 5px; /* Bo tròn các góc */
+    cursor: pointer; /* Con trỏ khi di chuột */
+  }
+
+  /* Media queries cho các kích thước màn hình khác nhau */
+  @media (max-width: 768px) {
+    .popup-box {
+      width: 90%; /* Điều chỉnh chiều rộng cho màn hình nhỏ hơn */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .popup-box {
+      width: 95%; /* Điều chỉnh chiều rộng cho điện thoại */
+      padding: 10px; /* Điều chỉnh khoảng cách nội dung */
+    }
+
+    .popup-box p {
+      font-size: 14px; /* Điều chỉnh cỡ chữ cho điện thoại */
+    }
+
+    .popup-box button {
+      font-size: 16px; /* Điều chỉnh cỡ chữ cho nút trên điện thoại */
+    }
+  }
+  </style>
+</head>
+<body>
+
+<!-- Button để mở box -->
+<div class="mobox">
+    <p  >Bạn có muốn nhận quà 8/3 không?</p>
+    <button id="moveButton" onmouseover="moveRandom()">Có chứ gì :V</button>
+    <button id="dongbox" style="display: none;" onclick="openPopup()">Không</button>
+    
+</div>
+
+<!-- Box và overlay -->
+<div id="popup" class="popup-box">
+  <p>Chúc mừng ngày Quốc tế Phụ nữ 8/3 đến với người bạn thân yêu của tôi! Trong ngày này, tôi muốn gửi đến bạn những lời chúc tốt đẹp nhất, bày tỏ lòng biết ơn và tôn trọng sâu sắc dành cho tất cả những điều tuyệt vời mà bạn mang lại cho cuộc sống của mọi người xung quanh. Bạn là một phụ nữ đầy mạnh mẽ, thông minh và tài năng, luôn đem lại niềm vui và sự ấm áp cho mọi người xung quanh. Chúc bạn luôn mạnh khỏe, hạnh phúc và thành công trong mọi lĩnh vực của cuộc sống!</p>
+  <div> <img id="displayedImage" src="" alt="Displayed Image"></div>
+  <button onclick="closePopup()">Tym tym <3</button>
+</div>
+<div id="overlay" class="overlay"></div>
+
+<script>
+  window.onload = function() {
+    setTimeout(function() {
+        document.getElementById("dongbox").style.display = "block";
+    }, 5000); 
+
+    // Địa chỉ URL của hình ảnh
+    const imageUrl = "https://nemvanthanh.org/wp-content/uploads/2023/08/Che-Anh-Meo-Tang-Hoa-Hong.jpg";
+
+    // Lấy thẻ img bằng ID
+    const imgElement = document.getElementById("displayedImage");
+
+    // Gán địa chỉ URL của hình ảnh cho thuộc tính src của thẻ img
+    imgElement.src = imageUrl;
+};
+  // JavaScript để mở box
+  function openPopup() {
+    document.getElementById('popup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+    
+  }
+
+  // JavaScript để đóng box
+  function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+  }
+  function moveRandom() {
+    var button = document.getElementById('moveButton');
+    var maxX = window.innerWidth - button.offsetWidth;
+    var maxY = window.innerHeight - button.offsetHeight;
+
+    var randomX = Math.floor(Math.random() * maxX);
+    var randomY = Math.floor(Math.random() * maxY);
+
+    button.style.left = randomX + 'px';
+    button.style.top = randomY + 'px';
+  }
+</script>
+
+</body>
+</html>
